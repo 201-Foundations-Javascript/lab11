@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 ProductImages.allProductsArray = [];
 ProductImages.rounds = 25;
 
@@ -16,8 +14,8 @@ function ProductImages(name, imageSrc) {
 ProductImages.prototype.render = function() {
     var ulTarget = document.getElementById('products');
     var createLi = document.createElement('li');
-    var createPElement = document.createElement('p');
     var createImage = document.createElement('img');
+    var createPElement = document.createElement('p');
     
     createPElement.textContent = 'Total Clicks for this product: ' + this.clickCount;
     createImage.src = this.imageSrc;
@@ -49,23 +47,14 @@ function productImageClicks (event) {
         var ctx = document.getElementById('results').getContext('2d');
 
         var imageName = [];
-
-        for(i = 0; i < ProductImages.allProductsArray.length; i++){
-            imageName.push(ProductImages.allProductsArray[i].name);
-        }
-
         var clickTotal = [];
-
-        for(i = 0; i < ProductImages.allProductsArray.length; i++){
-            clickTotal.push(ProductImages.allProductsArray[i].clickCount);
-        }
-
         var viewTotal = [];
 
         for(i = 0; i < ProductImages.allProductsArray.length; i++){
+            imageName.push(ProductImages.allProductsArray[i].name);
+            clickTotal.push(ProductImages.allProductsArray[i].clickCount);
             viewTotal.push(ProductImages.allProductsArray[i].views);
         }
-
 
         var chart = new Chart(ctx, {
 
@@ -108,7 +97,8 @@ function renderProductImages() {
     var randomImage; 
     
     for(var i = 0; i < 3; i++) {
-        do {
+        
+    do {
             randomImage = Math.floor(Math.random() * ProductImages.allProductsArray.length);
         }
         while(ProductImages.duplicateImages.includes(randomImage) || ProductImages.random.includes(randomImage))
@@ -117,10 +107,7 @@ function renderProductImages() {
         ProductImages.allProductsArray[randomImage].render();
         ProductImages.allProductsArray[randomImage].views++
     }
-    console.log(ProductImages.random);
-    console.log(ProductImages.duplicateImages);
 }
-
 
 var ulEl = document.getElementById('products');
 ulEl.addEventListener('click', productImageClicks);
